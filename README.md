@@ -27,7 +27,8 @@ beautifulsoupのインストールは
 ## 使い方
 
 >python TalkGet.py [URL] [File]
-で指定したURLのトーク（エピソード）をEPUB用のxhtmlとして取得し、/Textフォルダに[File]として保存します。
+
+で指定したURLのトーク（エピソード）をEPUB用のxhtmlとして取得し、/Textフォルダに[File]として保存します。
 
 URLを省略すると「もしも敬虔な女子高生が〈神は死んだ〉のニーチェ作『ツァラトゥストラ』を読んだなら」の表紙ページ（ https://talkmaker.com/works/e39da839e2d4cf3d1706b528d846e7ba.html ）を取得します。（Fileのデフォルトはtext01.xhtml)
 
