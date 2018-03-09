@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+/* BCCKS Epub Style Standard LefttoRight参考*/
+
+
+/* 基本設定 */
+
+
+/* 版面 */
+
+@page {
+    margin: 2.5em 0 3em 0;
+}
+
+body {
+    -webkit-line-break: normal;
+    -epub-line-break: normal;
+    -webkit-word-break: normal;
+    -epub-word-break: normal;
+    -webkit-hyphens: auto;
+    -epub-hyphens: auto;
+    word-spacing: normal;
+    letter-spacing: normal;
+    word-wrap: break-word;
+    /* 半角長文の強制改行を許す（url対策） */
+    white-space: normal;
+    text-align: justify;
+    text-justify: inter-ideograph;
+}
+
+.img_Center {
+    text-align: center;
+}
+
+.iconL {
+    float: left;
+    padding-top: 0.5em;
+    padding-left: 0em;
+    padding-right: 0.5em;
+    padding-bottom: 0.5em;
+    text-align: center;
+    display: inline;
+    max-width: 10%;
+}
+
+.iconR {
+    float: right;
+    padding-top: 0.5em;
+    padding-left: 0em;
+    padding-right: 0.5em;
+    padding-bottom: 0.5em;
+    text-align: center;
+    display: inline;
+    max-width: 10%;
+}
+
+.iconClear {
+    clear: both;
+}
