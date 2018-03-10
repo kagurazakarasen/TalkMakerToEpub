@@ -12,7 +12,6 @@ by 神楽坂らせん version 0.002
 
 * MacOS HighSierra 10.13.3
 * Python 3.6.2
-
    * Pythonのモジュール
    * beautifulsoup4
    * requests
