@@ -81,10 +81,10 @@ def TalkGet(url,saveTextFile):
                 print(strg)
                 file.write(strg)
                 ff = div.find("div",class_="fRight")
-                fff = ff.find("div")
-                strg=str(fff)+CR
-                file.write(strg)
-                file.write('<p class="iconClear"><BR> </p>'+CR)
+                #fff = ff.find("div")
+                #strg=str(fff)+CR
+                #file.write(strg)
+                #file.write('<p class="iconClear"><BR> </p>'+CR)
             else:
                 print("RIGHT balloon:")
                 r= div.find("div",class_="fRight")
@@ -96,11 +96,11 @@ def TalkGet(url,saveTextFile):
                 print(strg)
                 file.write(strg)
                 ff = div.find("div",class_="fLeft")
-                fff = ff.find("div")
-                print(fff)
-                strg=str(fff)+CR
-                file.write(strg)
-                file.write('<p class="iconClear"><BR> </p>'+CR)
+            fff = ff.find("div")
+            print(fff)
+            strg='<BR>'+str(fff)+CR # 吹き出しの冒頭改行いれ
+            file.write(strg)
+            file.write('<p class="iconClear"><BR> </p>'+CR)
             #print("吹き出し＞＞＞",f)
         else:
             #吹き出しではない
