@@ -22,10 +22,15 @@ CR = chr(13)    #Mac
 
 def TalkGet(url,saveTextFile):
     """ トークメーカーのストーリー部分(url)を、Text/ (saveTextFile) にHTML形式で保存する """
-    #print('Hello World!')
-    res = requests.get(url)
-    res.raise_for_status()
-    soup = bs4.BeautifulSoup(res.text, "html.parser")
+
+    rubyCng(url) # urlからDLした内容のルビを置換、結果はworkout.datに入る
+
+    #res = requests.get(url)
+    #res.raise_for_status()
+    #soup = bs4.BeautifulSoup(res.text, "html.parser")
+
+    dummyFile = codecs.open('workout.dat' ,'r','utf-8')
+    soup = bs4.BeautifulSoup(dummyFile, "html.parser")
     print(soup.title)
 
     tt = soup.h3
@@ -136,6 +141,22 @@ def TalkGet(url,saveTextFile):
     file.write("</BODY></HTML>"+CR)
     
     file.close()
+
+# ルビのバグ対策
+def rubyCng(url):
+    #download(url,'work.html')
+    urllib.request.urlretrieve(url,"{0}".format('work.dat'))
+    file = codecs.open('workout.dat' ,'w','utf-8')
+
+    lineCount = 0
+    for Line in codecs.open("work.dat", "r",'utf-8'):
+        lineCount += 1
+        Line = Line.replace('<rp>(</rt>','<rp>(</rp>')
+        Line = Line.replace('<rp>)</rt>','<rp>)</rp>')
+        file.write(Line)
+
+    file.close()
+
 
 #必要なディレクトリを作成
 def setDir():
