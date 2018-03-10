@@ -7,6 +7,7 @@ import os
 from time import sleep
 
 """
+全ストーリーまるっとゲットしちゃうやつ
 """
 
 
@@ -35,8 +36,9 @@ def tocGet(url):
             print(b)
             storyUrl = 'https://talkmaker.com'+str(b)
             TalkGet(storyUrl,'text'+'{0:04d}'.format(storyNo) +'.xhtml')
-            print("５秒間停止")
+            print("ーーーーー５秒間停止中ーーーーーー")
             sleep(5) #５秒スリープ
+    print("ーーーーー　終了　ーーーーーー")
 
 
 
