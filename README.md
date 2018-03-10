@@ -1,6 +1,6 @@
 # TalkMakerToEpub
 
-by 神楽坂らせん version 0.001 
+by 神楽坂らせん version 0.002 
 
 トークメーカーのストーリー（エピソード）をEPUB化します。
 
@@ -12,7 +12,9 @@ by 神楽坂らせん version 0.001
 
 * MacOS HighSierra 10.13.3
 * Python 3.6.2
-* beautifulsoup4
+   * Pythonのモジュール
+   * beautifulsoup4
+   * requests
 
 ### あるといいもの
 
@@ -26,7 +28,12 @@ beautifulsoupのインストールは
 
 >$ pip install beautifulsoup4
 
-でOK
+でOK。
+あ、requestsも入れないとおこられるかも。
+
+>$ pip install requests
+
+してあげてください。
 
 ## 使い方
 
