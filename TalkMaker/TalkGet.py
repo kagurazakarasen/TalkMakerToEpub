@@ -44,6 +44,7 @@ def TalkGet(url,saveTextFile):
 
     dummyFile = codecs.open('workout.dat' ,'r','utf-8')
     soup = bs4.BeautifulSoup(dummyFile, "html.parser")
+    dummyFile.close()
     print(soup.title)
 
     tt = soup.h3
