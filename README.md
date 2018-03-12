@@ -1,6 +1,6 @@
 # TalkMakerToEpub
 
-by 神楽坂らせん version 0.003
+by 神楽坂らせん version 0.005
 
 トークメーカーのストーリー（エピソード）をEPUB化します。
 
@@ -12,9 +12,9 @@ by 神楽坂らせん version 0.003
 
 * MacOS HighSierra 10.13.3
 * Python 3.6.2
-   * Pythonのモジュール
-   * beautifulsoup4
-   * requests
+    * Pythonのモジュール
+    * beautifulsoup4
+    * requests
 
 ### あるといいもの
 
@@ -47,13 +47,11 @@ URLを省略すると「もしも敬虔な女子高生が〈神は死んだ〉�
 
 >python allStorys.py [URL]
 
-URLで指定した目次ページにある全ストーリーを一気にやります、TEXT0001.xhtmlからの連番で取得。
+URLで指定した目次ページにある全ストーリーを一気にやります、text0001.xhtmlからの連番で取得。
 URLを指定しないと、『もしトラ』の目次ページ（ https://talkmaker.com/works/e39da839e2d4cf3d1706b528d846e7ba.html ）からもってきます。
 サーバーの負荷対策で各ストーリーごとに５秒間停止します。（途中でキャンセルはそのタイミングでCTRL+Cしてください）
 
-### 現状の問題点
-* 複数のストーリーの一括取得と同時に目次も生成したいけれど手付かず。
-
+※　Version 0.005 にて、allStorys時に目次の自動生成も行えるようにしました。TEXT0000.xhtml として作品ページにかかれている目次と本の情報、登場人物紹介を取得します。別ページ化したい場合はSigil上で分割してください。
 
 ## ライセンス的なもの
     ----
