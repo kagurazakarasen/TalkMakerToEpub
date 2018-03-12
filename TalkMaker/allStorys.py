@@ -18,12 +18,29 @@
     ----
 """
 
+#定数的なモノ
+WAIT_SEC = 1    #強制ウェイトタイム
+TOC_HTML = 'TEXT0000.xhtml'
+HYOSHI_IMG_SIZE = '300px'
+MOKUJI_CHARA_SIZE = '30%'
+
+
+
 from TalkGet import *
 
 import sys
 import os
 from time import sleep
 
+xhtml_head = """<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+<meta charset="UTF-8"/>
+<link href="../Styles/styles_epub_reset.css" rel="stylesheet" type="text/css"/>
+<link href="../Styles/styles_epub_ltr.css" rel="stylesheet" type="text/css" media="all"/>
+"""
 
 def tocGet(url):
     """ 目次を取得 """
@@ -32,26 +49,110 @@ def tocGet(url):
     soup = bs4.BeautifulSoup(res.text, "html.parser")
     print(soup.title)
 
-    tt = soup.h3
-    print(tt.text)
 
+    t_file = codecs.open('Text/' + TOC_HTML ,'w','utf-8')
+    t_file.writelines(xhtml_head)
+
+    tt = soup.h3
+    tf_str="<title>"+ tt.text+ "</title>"+CR+"<body>"+CR 
+    t_file.write(tf_str)
+
+    tf_str="<h2>"+ tt.text+ "</h2>"+CR #タイトル
+    print(tf_str)
+    t_file.write(tf_str)
+
+    cell = soup.find_all("div",class_="cell")
+
+    tf_str="<h3>"+cell[1].a.text+"</h3>"+CR   #著者名
+    print(tf_str)
+    t_file.write(tf_str)
+
+    icon_img = cell[0].img.get("src")   #表紙アイコン
+    print(icon_img)
+    imgFileGet(icon_img)
+    strg = '<img src="../Images/' + os.path.basename(icon_img) +'" width="'+ HYOSHI_IMG_SIZE +'"/>'+CR
+    print(strg)
+    t_file.write(strg)
+
+    #説明文
+    p15 = soup.find("p",class_="mt15")
+    print(p15)
+    tf_str=str(p15)+CR
+    t_file.write(tf_str)
+
+    t_file.write("<hr>"+CR)
+    t_file.write("<p> <br> </p>")
+    t_file.write("<h2>もくじ</h2>"+CR)
+
+    t_file.write("<ul>"+CR)
+
+    #エピソード取得
     tocSrc = soup.find("ul",class_="episode")
     #print(tocSrc)
     storyNo=0
     for a in tocSrc.select('li > a'):
         txt=str(a.text)
-        st=txt.find("更新日")
+        st=txt.find("更新日")  #更新日以下の情報はカット
         txt2=txt[:st]
-        print(txt2)
+        print(txt2) #ストーリータイトル
         b=a['href']
         if b:
             storyNo = storyNo + 1
             print(b)
+            xhtml_file = 'text'+'{0:04d}'.format(storyNo) +'.xhtml'
             storyUrl = 'https://talkmaker.com'+str(b)
+            
+            print(txt2,"-->",xhtml_file)
+
+            tf_str='<li><a href="../Text/'+ xhtml_file + '">'+ txt2+ '</a></li>'+CR
+            print(tf_str)
+            t_file.write(tf_str)
+
             TalkGet(storyUrl,'text'+'{0:04d}'.format(storyNo) +'.xhtml')
-            print("ーーーーー５秒間停止中ーーーーーー")
-            sleep(5) #５秒スリープ
+            print("ーーーーー",WAIT_SEC,"秒間停止中ーーーーーー")
+            sleep(WAIT_SEC) #スリープ
+
+
+    t_file.write("</ul>"+CR)
+    t_file.write("<hr>"+CR)
+
+    t_file.write("<h3>登場人物紹介</h3>"+CR)
+    
+    ch = soup.find("div",class_="join list m15")
+
+    s2 = bs4.BeautifulSoup(str(ch), "html.parser")
+
+    chf= s2.find_all("div",class_="clear type1 mt30")
+
+    for i in range(len(chf)):
+        print(i,end='')
+        s3 = bs4.BeautifulSoup(str(chf[i]), "html.parser")
+        ss = s3.find("div",class_="fLeft")
+        sss = ss.find("img")['src']
+        print("イメージソース：",sss)
+        imgFileGet(sss)
+
+        ss = s3.find("div",class_="fRight")
+        ssp = ss.find("p")
+        print("P：",ssp)
+
+        strg = '<img src="../Images/' + os.path.basename(sss) +'" class="iconL" width="'+ MOKUJI_CHARA_SIZE +'"/>'+CR
+
+        print(strg)
+        t_file.write(strg)
+
+        t_file.writelines(str(ssp))
+
+        t_file.write('<p class="iconClear"><BR> </p>'+CR)
+
+
     print("ーーーーー　終了　ーーーーーー")
+
+    t_file.write("</body></html>"+CR)
+
+
+    t_file.close()
+
 
 
 #メインルーチン
