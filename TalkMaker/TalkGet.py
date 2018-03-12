@@ -33,6 +33,17 @@ FUKIDASI_BR = False #キャラ画像脇のテキスト冒頭に改行を入れ�
 CHARA_SIZE = '30%'  #キャラクタ画像サイズ。％かpxで指定します。
 
 
+xhtml_head = """<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+<meta charset="UTF-8"/>
+<link href="../Styles/styles_epub_reset.css" rel="stylesheet" type="text/css"/>
+<link href="../Styles/styles_epub_ltr.css" rel="stylesheet" type="text/css" media="all"/>
+"""
+
+
 def TalkGet(url,saveTextFile):
     """ トークメーカーのストーリー部分(url)を、Text/ (saveTextFile) にHTML形式で保存する """
 
@@ -63,12 +74,14 @@ def TalkGet(url,saveTextFile):
     <link href="../Styles/styles_epub_ltr.css" rel="stylesheet" type="text/css" media="all"/>
     <title>てすとのほん</title>
     """
-    file.write('<?xml version="1.0" encoding="utf-8"?>'+CR)
-    file.write("<!DOCTYPE html>"+CR+CR)
-    file.write('<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja" xmlns:epub="http://www.idpf.org/2007/ops">'+CR)
-    file.write("<head>"+CR)
-    file.write('<meta charset="UTF-8"/>'+CR)
-    file.write('<link href="../Styles/styles_epub.css" rel="stylesheet" type="text/css" media="all"/>'+CR)
+    #file.write('<?xml version="1.0" encoding="utf-8"?>'+CR)
+    #file.write("<!DOCTYPE html>"+CR+CR)
+    #file.write('<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja" xmlns:epub="http://www.idpf.org/2007/ops">'+CR)
+    #file.write("<head>"+CR)
+    #file.write('<meta charset="UTF-8"/>'+CR)
+    #file.write('<link href="../Styles/styles_epub.css" rel="stylesheet" type="text/css" media="all"/>'+CR)
+    
+    file.writelines(xhtml_head)
 
     file.write("<title>")
     #file.writelines(soup.title)

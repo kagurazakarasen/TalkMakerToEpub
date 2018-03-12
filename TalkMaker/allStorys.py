@@ -19,7 +19,7 @@
 """
 
 #定数的なモノ
-WAIT_SEC = 1    #強制ウェイトタイム
+WAIT_SEC = 5    #強制ウェイトタイム
 TOC_HTML = 'TEXT0000.xhtml'
 HYOSHI_IMG_SIZE = '300px'
 MOKUJI_CHARA_SIZE = '30%'
@@ -32,15 +32,6 @@ import sys
 import os
 from time import sleep
 
-xhtml_head = """<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja" xmlns:epub="http://www.idpf.org/2007/ops">
-<head>
-<meta charset="UTF-8"/>
-<link href="../Styles/styles_epub_reset.css" rel="stylesheet" type="text/css"/>
-<link href="../Styles/styles_epub_ltr.css" rel="stylesheet" type="text/css" media="all"/>
-"""
 
 def tocGet(url):
     """ 目次を取得 """
