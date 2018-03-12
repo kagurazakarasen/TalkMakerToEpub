@@ -130,7 +130,7 @@ def TalkGet(url,saveTextFile):
                 print(imglazy)
                 #print(imglazy['src'])
                 imgFileGet(imglazy['src'])
-                #print(os.path.basename(imglazy['src']))
+                #固定画像の横幅は３段階から指定
                 print(imglazy['width'])
                 if imglazy['width'] == '640':
                     Wid = '100%'
@@ -150,7 +150,7 @@ def TalkGet(url,saveTextFile):
             print("ベタ書き：",s)
             file.write(strg)
             file.write('<p><br></p>')
-        print('>>>',i)
+        #print('>>>',i)
         #if i>10: break
 
     file.write("</BODY></HTML>"+CR)
@@ -198,6 +198,7 @@ def imgFileGet(url):
     if not os.path.exists('Images/'+fn):
         urllib.request.urlretrieve(url,'Images/'+fn)
 
+#メインルーチン
 if __name__ == '__main__':
     argvs = sys.argv
     argc = len(argvs)
@@ -211,5 +212,3 @@ if __name__ == '__main__':
         #argcが２以上なら、指定URLを指定fileに保存(今のところ１つだけ)
         TalkGet(argvs[1],argvs[2])
         
-
-#print('モジュール名：{}'.format(__name__))  #実行したモジュール名を表示する
