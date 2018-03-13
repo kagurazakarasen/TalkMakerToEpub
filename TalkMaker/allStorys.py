@@ -20,7 +20,7 @@
 """
 
 #定数的なモノ
-WAIT_SEC = 5    #強制ウェイトタイム
+WAIT_SEC = 15    #強制ウェイトタイム
 TOC_HTML = 'TEXT0000.xhtml'
 HYOSHI_IMG_SIZE = '300px'
 MOKUJI_CHARA_SIZE = '30%'
