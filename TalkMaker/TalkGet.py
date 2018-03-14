@@ -7,14 +7,16 @@
     できたxhtmlファイルはSigilにつっこみ、表紙と目次等を追加すればEpub化できます。
     今のところは吹き出し枠表示と背景色はナシです。
     ----
-    by 神楽坂らせん　
-    ※もちろんですが、完全に無保証です。
+    ※これは非公式の勝手スクリプトであり、トークメーカーさまとは一切関係のないソフトウェアです。
+    バグ等はトークメーカーさまではなく、神楽坂らせんの方へよろしくお願いします。
+    ただし、あくまで本スクリプトは架空世界のトークメーカーっぽい作品をEpub化するものであり、架空はもちろん、現実世界でも完全に無保証です。現実世界のトーク作品を偶然Epub化できたとしても、それはおそらく偶然に、運良くできてしまったにすぎません。
     本スクリプトの利用でいかなる不利益・不具合が発生しても、当方は一切責任をもちません。
-    また本スクリプト作成段階でのトークメーカーのデータ以外での動作は一切検証されていません。
+    また本スクリプト作成段階でのデフォルトで読み込まれるデータ以外での動作は一切検証されていません。
     あくまでご利用は自己責任で計画的に。
-    これで作成したEpubファイルの利用・配布・販売等はご自由にどうぞ。
+    これで作成できてしまったEpubファイルの利用・配布・販売等はご自由にどうぞ。
     （できれば、あとがきにでも一言ありますと嬉しいです）
     このスクリプト自体の改変・再配布もOKですが、このコメント文は残すようにしてください。
+    by 神楽坂らせん　
     ----
 """
 
@@ -63,17 +65,6 @@ def TalkGet(url,saveTextFile):
 
     file = codecs.open('Text/' + saveTextFile ,'w','utf-8')
 
-    """
-    <?xml version="1.0" encoding="utf-8"?>
-    <!DOCTYPE html>
-
-    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja" xmlns:epub="http://www.idpf.org/2007/ops">
-    <head>
-    <meta charset="UTF-8"/>
-    <link href="../Styles/styles_epub_reset.css" rel="stylesheet" type="text/css"/>
-    <link href="../Styles/styles_epub_ltr.css" rel="stylesheet" type="text/css" media="all"/>
-    <title>てすとのほん</title>
-    """
     #file.write('<?xml version="1.0" encoding="utf-8"?>'+CR)
     #file.write("<!DOCTYPE html>"+CR+CR)
     #file.write('<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja" xmlns:epub="http://www.idpf.org/2007/ops">'+CR)
