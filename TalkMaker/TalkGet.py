@@ -223,10 +223,9 @@ if __name__ == '__main__':
         #print('argc<2')
         TalkGet('https://talkmaker.com/works/episode/9880b1ccec9b22606e7b31e29027fafa.html','text01.xhtml')
     elif(argc < 3):
-        #print('argc<3')
+        #指定が一つのみ（URLだけ）の場合
         TalkGet(argvs[1],'text01.xhtml')
     else:
-        #print('argc else')
-        #argcが２以上なら、指定URLを指定fileに保存(今のところ１つだけ)
+        #argcが２以上なら、指定URLを指定fileに保存
         TalkGet(argvs[1],argvs[2])
         
