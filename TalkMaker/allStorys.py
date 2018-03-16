@@ -3,10 +3,10 @@
 """
     全ストーリーをまるっとゲットしちゃうやつ
 
-    使い方：　python allStorys.py [URL]
+    使い方：　python allStorys.py [URL] [No]
 
     URLに目次ページがあるトークメーカーの全ストーリーを取得します。内部で TalkGet.py スクリプトを呼び出しています。
-
+    [No]は目次の起点No（＋１＝連番の開始No（目次デフォルトは text0000.xhtml)
     ----
     ※これは非公式の勝手スクリプトであり、トークメーカーさまとは一切関係のないソフトウェアです。
     バグ等はトークメーカーさまではなく、神楽坂らせんの方へよろしくお願いします。
@@ -22,8 +22,9 @@
 """
 
 #定数的なモノ
-WAIT_SEC = 15    #強制ウェイトタイム
+WAIT_SEC = 5    #強制ウェイトタイム
 TOC_HTML = 'TEXT0000.xhtml'
+TOC_NO = 0
 HYOSHI_IMG_SIZE = '300px'
 MOKUJI_CHARA_SIZE = '30%'
 
@@ -36,15 +37,16 @@ import os
 from time import sleep
 
 
-def tocGet(url):
-    """ 目次を取得 """
+def tocGet(url,tn):
+    """ 目次を取得 ※tnはTOCの開始番号、通常のページはtn+1から連番"""
     res = requests.get(url)
     res.raise_for_status()
     soup = bs4.BeautifulSoup(res.text, "html.parser")
     print(soup.title)
 
-
-    t_file = codecs.open('Text/' + TOC_HTML ,'w','utf-8')
+    
+    toc_t = 'text'+'{0:04d}'.format(tn) +'.xhtml'
+    t_file = codecs.open('Text/' + toc_t ,'w','utf-8')
     t_file.writelines(xhtml_head)
 
     tt = soup.h3
@@ -83,7 +85,7 @@ def tocGet(url):
     #エピソード取得
     tocSrc = soup.find("ul",class_="episode")
     #print(tocSrc)
-    storyNo=0
+    storyNo=tn
     for a in tocSrc.select('li > a'):
         txt=str(a.text)
         st=txt.find("更新日")  #更新日以下の情報はカット
@@ -155,11 +157,16 @@ if __name__ == '__main__':
     argc = len(argvs)
     setDir()
     print(argc)
-    if(argc != 2):
+    if(argc < 2):
         #指定なければもしトラ全取得URL
-        tocGet('https://talkmaker.com/works/e39da839e2d4cf3d1706b528d846e7ba.html')
-        
+        tocGet('https://talkmaker.com/works/e39da839e2d4cf3d1706b528d846e7ba.html',0)
+    elif(argc < 3):
+        #指定が一つのみ（URLだけ）の場合
+        print("指定URLのみ")
+        tocGet(argvs[1],0)
     else:
-        #argcが２以上なら、指定URL
-        tocGet(argvs[1])
+        #argcが２以上なら、指定URL+指定No
+        print("指定U+No")
+        tocGet(argvs[1],int(argvs[2]))
+        
 
