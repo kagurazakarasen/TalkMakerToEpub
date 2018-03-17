@@ -163,10 +163,21 @@ if __name__ == '__main__':
     elif(argc < 3):
         #指定が一つのみ（URLだけ）の場合
         print("指定URLのみ")
-        tocGet(argvs[1],0)
+        if(argvs[1].find("works")>0):
+            if(argvs[1].find("episode")>0):
+                print("エラー：",argvs[1],"はエピソードファイルの模様。")
+            else:
+                tocGet(argvs[1],0)
+        else:
+            print("読み込みエラー：",argvs[1],"は目次URLでは無いようです")
     else:
         #argcが２以上なら、指定URL+指定No
         print("指定U+No")
-        tocGet(argvs[1],int(argvs[2]))
-        
+        if(argvs[1].find("works")>0):
+            if(argvs[1].find("episode")>0):
+                print("エラー：",argvs[1],"はエピソードファイルの模様。")
+            else:
+                tocGet(argvs[1],int(argvs[2]))
+        else:
+            print("読み込みエラー：",argvs[1],"は目次URLでは無いようです")
 

@@ -215,8 +215,13 @@ if __name__ == '__main__':
         TalkGet('https://talkmaker.com/works/episode/9880b1ccec9b22606e7b31e29027fafa.html','text01.xhtml')
     elif(argc < 3):
         #指定が一つのみ（URLだけ）の場合
-        TalkGet(argvs[1],'text01.xhtml')
+        if(argvs[1].find("episode")>0):
+            TalkGet(argvs[1],'text01.xhtml')
+        else:
+            print("読み込みエラー",argvs[1],"はエピソードURLでは無いようです")
     else:
         #argcが２以上なら、指定URLを指定fileに保存
-        TalkGet(argvs[1],argvs[2])
-        
+        if(argvs[1].find("episode")>0):
+            TalkGet(argvs[1],argvs[2])
+        else:
+            print("読み込みエラー",argvs[1],"はエピソードURLでは無いようです")
