@@ -71,7 +71,8 @@ URLを指定しないと、『もしトラ』の目次ページ（ https://talkm
 
 ## そのほかのドキュメントなど
 * トークメーカーでの説明
-https://talkmaker.com/works/37f020a91fa6c9ea8c38ed71c24bf237.html
+	* https://talkmaker.com/works/37f020a91fa6c9ea8c38ed71c24bf237.html
 * Wiki での説明
-https://github.com/kagurazakarasen/TalkMakerToEpub/wiki
-How To Use https://github.com/kagurazakarasen/TalkMakerToEpub/wiki/HowToUse
+	* https://github.com/kagurazakarasen/TalkMakerToEpub/wiki
+	* How To Use
+		* https://github.com/kagurazakarasen/TalkMakerToEpub/wiki/HowToUse
