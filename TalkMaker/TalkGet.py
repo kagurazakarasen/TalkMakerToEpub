@@ -218,10 +218,10 @@ if __name__ == '__main__':
         if(argvs[1].find("episode")>0):
             TalkGet(argvs[1],'text01.xhtml')
         else:
-            print("読み込みエラー",argvs[1],"はエピソードURLでは無いようです")
+            print("読み込みエラー：",argvs[1],"はエピソードURLでは無いようです")
     else:
         #argcが２以上なら、指定URLを指定fileに保存
         if(argvs[1].find("episode")>0):
             TalkGet(argvs[1],argvs[2])
         else:
-            print("読み込みエラー",argvs[1],"はエピソードURLでは無いようです")
+            print("読み込みエラー：",argvs[1],"はエピソードURLでは無いようです")
