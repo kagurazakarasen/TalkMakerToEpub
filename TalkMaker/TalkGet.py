@@ -128,6 +128,7 @@ def TalkGet(url,saveTextFile):
             #print("吹き出し＞＞＞",f)
         else:
             #吹き出しではない
+            print("＃吹き出しではない")
             imglazy = div.find("img",class_="lazy")
             imgon = div.find("img",class_="op_no")
             if imglazy and not imgon:
@@ -146,12 +147,18 @@ def TalkGet(url,saveTextFile):
                 strg='<div class="img_Center"><img src="../Images/' + os.path.basename(imglazy['src']) +'" width="'+ Wid + '"></div>'+CR
                 print(strg)
                 file.write(strg)
-
+            
             s = div.find("div")
             #print(range(len(s)),s)
             strg = str(s)+CR
             if strg.find('id="main_img"')>0:
                 break
+            ss = strg.find('class="balloon type2 ') 
+            if(ss > 0):
+                print("＃アイコンなし：特殊処理")
+                sss = strg.find('<div class="r mt10 f72">')
+                strg = strg[:sss] + CR
+
             print("ベタ書き：",s)
             file.write(strg)
             file.write('<p><br></p>')
