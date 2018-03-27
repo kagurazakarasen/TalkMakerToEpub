@@ -28,7 +28,7 @@ TOC_NO = 0
 HYOSHI_IMG_SIZE = '300px'
 MOKUJI_CHARA_SIZE = '30%'
 
-
+OKUDUKE = True  #奥付をつけるかどうか
 
 from TalkGet import *
 
