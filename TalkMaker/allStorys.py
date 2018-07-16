@@ -8,13 +8,16 @@
     URLに目次ページがあるトークメーカーの全ストーリーを取得します。内部で TalkGet.py スクリプトを呼び出しています。
     [No]は目次の起点No（＋１＝連番の開始No（目次デフォルトは text0000.xhtml)
 
+    詳しくは：https://talkmaker.com/works/37f020a91fa6c9ea8c38ed71c24bf237.html 参照
+
     ※ 2018/03/31現在、SigilでEpub化を行っても、正しいEPUBファイルにはならず、電書チェッカーなどではエラーになるようです。
     　AmazonKindle用のmobiファイルに変換はうまく出来ているので、現状はこの状態でリリースいたします。（修正大変そう＞＜）
 
     ----
     ※これは非公式の勝手スクリプトであり、トークメーカーさまとは一切関係のないソフトウェアです。
     バグ等はトークメーカーさまではなく、神楽坂らせんの方へよろしくお願いします。
-    ただし、あくまで本スクリプトは架空世界のトークメーカーっぽい作品をEpub化するものであり、架空はもちろん、現実世界でも完全に無保証です。現実世界のトーク作品を偶然Epub化できたとしても、それはおそらく偶然に、運良くできてしまったにすぎません。
+    ただし、あくまで本スクリプトは架空世界のトークメーカーっぽい作品をEpub化するものであり、架空はもちろん、現実世界でも完全に無保証です。
+    現実世界のトーク作品を偶然Epub化できたとしても、それはおそらく偶然に、運良くできてしまったにすぎません。
     本スクリプトの利用でいかなる不利益・不具合が発生しても、当方は一切責任をもちません。
     また本スクリプト作成段階でのデフォルトで読み込まれるデータ以外での動作は一切検証されていません。
     あくまでご利用は自己責任で計画的に。
@@ -48,13 +51,13 @@ def tocGet(url,tn):
     soup = bs4.BeautifulSoup(res.text, "html.parser")
     print(soup.title)
 
-    
+
     toc_t = 'text'+'{0:04d}'.format(tn) +'.xhtml'
     t_file = codecs.open('Text/' + toc_t ,'w','utf-8')
     t_file.writelines(xhtml_head)
 
     tt = soup.h3
-    tf_str="<title>"+ tt.text+ "</title>"+CR+"<body>"+CR 
+    tf_str="<title>"+ tt.text+ "</title>"+CR+"<body>"+CR
     t_file.write(tf_str)
 
     tf_str="<h2>"+ tt.text+ "</h2>"+CR #タイトル
@@ -101,7 +104,7 @@ def tocGet(url,tn):
             print(b)
             xhtml_file = 'text'+'{0:04d}'.format(storyNo) +'.xhtml'
             storyUrl = 'https://talkmaker.com'+str(b)
-            
+
             print(txt2,"-->",xhtml_file)
 
             tf_str='<li><a href="../Text/'+ xhtml_file + '">'+ txt2+ '</a></li>'+CR
@@ -117,7 +120,7 @@ def tocGet(url,tn):
     t_file.write("<hr>"+CR)
 
     t_file.write("<h3>登場人物紹介</h3>"+CR)
-    
+
     ch = soup.find("div",class_="join list m15")
 
     s2 = bs4.BeautifulSoup(str(ch), "html.parser")
@@ -184,4 +187,3 @@ if __name__ == '__main__':
                 tocGet(argvs[1],int(argvs[2]))
         else:
             print("読み込みエラー：",argvs[1],"は目次URLでは無いようです")
-

@@ -5,15 +5,20 @@
     URLにあるトークメーカーのストーリーを取得してTextディレクトリにxhtmlページ(file)を作成します。
     自動的に画像も取得します。
     できたxhtmlファイルはSigilにつっこみ、表紙と目次等を追加すればEpub化できます。
-    今のところは吹き出し枠表示と背景色はナシです。
+    詳しくは：https://talkmaker.com/works/37f020a91fa6c9ea8c38ed71c24bf237.html 参照
 
     ※ 2018/03/31現在、SigilでEpub化を行っても、正しいEPUBファイルにはならず、電書チェッカーなどではエラーになるようです。
     　AmazonKindle用のmobiファイルに変換はうまく出来ているので、現状はこの状態でリリースいたします。（修正大変そう＞＜）
 
+    ※ 2018/07/15修正：谷川求鹿さん作、鹿にっき https://talkmaker.com/works/a4e3ad39e1a98a43c31d873a207b8801.html
+    　を元に、大幅な修正を行い、吹き出し＆背景色をいれられるモードを新設しました。
+    　ソース内で ShikaMode = True にすることで実行できます
+
     ----
     ※これは非公式の勝手スクリプトであり、トークメーカーさまとは一切関係のないソフトウェアです。
     バグ等はトークメーカーさまではなく、神楽坂らせんの方へよろしくお願いします。
-    ただし、あくまで本スクリプトは架空世界のトークメーカーっぽい作品をEpub化するものであり、架空はもちろん、現実世界でも完全に無保証です。現実世界のトーク作品を偶然Epub化できたとしても、それはおそらく偶然に、運良くできてしまったにすぎません。
+    ただし、あくまで本スクリプトは架空世界のトークメーカーっぽい作品をEpub化するものであり、架空はもちろん、現実世界でも完全に無保証です。
+    現実世界のトーク作品を偶然Epub化できたとしても、それはおそらく偶然に、運良くできてしまったにすぎません。
     本スクリプトの利用でいかなる不利益・不具合が発生しても、当方は一切責任をもちません。
     また本スクリプト作成段階でのデフォルトで読み込まれるデータ以外での動作は一切検証されていません。
     あくまでご利用は自己責任で計画的に。
@@ -34,6 +39,8 @@ import codecs
 
 
 #定数的ないろいろ
+ShikaMode = False    #鹿にっきモード、Trueにすると吹き出しがONになります
+
 CR = chr(13)    #改行コード
 
 FUKIDASI_BR = False #キャラ画像脇のテキスト冒頭に改行を入れるかどうか
@@ -75,7 +82,7 @@ def TalkGet(url,saveTextFile):
     #file.write("<head>"+CR)
     #file.write('<meta charset="UTF-8"/>'+CR)
     #file.write('<link href="../Styles/styles_epub.css" rel="stylesheet" type="text/css" media="all"/>'+CR)
-    
+
     file.writelines(xhtml_head)
 
     file.write("<title>")
@@ -89,7 +96,7 @@ def TalkGet(url,saveTextFile):
 
     file.write('<HR/>'+CR)
 
-    #m30div = soup.find_all("div", class_="m30") 
+    #m30div = soup.find_all("div", class_="m30")
     #print(m30div[1])    # すべての発言
 
     #mt30 = soup.find_all("div", class_="mt30")
@@ -104,10 +111,23 @@ def TalkGet(url,saveTextFile):
                 imgSrc=f.find("img")['src']
                 print("IMGソース：",imgSrc)
                 imgFileGet(imgSrc)
-                strg = '<img src="../Images/' + os.path.basename(imgSrc) +'" class="iconL" width="'+ CHARA_SIZE +'"/>'+CR
+                if ShikaMode:
+                    print('鹿モード')
+                    FukiPos="fukiR"
+                    strg = '<img src="../Images/' + os.path.basename(imgSrc) +'" class="iconL" />'+CR
+                else:
+                    strg = '<img src="../Images/' + os.path.basename(imgSrc) +'" class="iconL" width="'+ CHARA_SIZE +'"/>'+CR
                 print(strg)
                 file.write(strg)
                 ff = div.find("div",class_="fRight")
+                #print('ff=',ff)
+                if ShikaMode:
+                    ffs= str(ff).find('balloonColor')+len('balloonColor')
+                    #print('ffs=',ffs)
+                    ffss= str(ff)[ffs:ffs+2]
+                    if ffss[-1]=='"':
+                        ffss = ffss[0]
+                    #print('fC=',ffss)
 
             else:
                 print("RIGHT balloon:")
@@ -116,12 +136,28 @@ def TalkGet(url,saveTextFile):
                 imgSrc=r.find("img")['src']
                 print("IMGソース：",imgSrc)
                 imgFileGet(imgSrc)
-                strg = '<img src="../Images/' + os.path.basename(imgSrc) +'" class="iconR" width="'+ CHARA_SIZE +'"/>'+CR
+                if ShikaMode == True:
+                    print('鹿モード')
+                    FukiPos="fukiL"
+                    strg = '<img src="../Images/' + os.path.basename(imgSrc) +'" class="iconR" />'+CR
+                else:
+                    strg = '<img src="../Images/' + os.path.basename(imgSrc) +'" class="iconR" width="'+ CHARA_SIZE +'"/>'+CR
                 print(strg)
                 file.write(strg)
                 ff = div.find("div",class_="fLeft")
+                if ShikaMode:
+                    ffs= str(ff).find('balloonColor')+len('balloonColor')
+                    #print('ffs=',ffs)
+                    ffss= str(ff)[ffs:ffs+2]
+                    if ffss[-1]=='"':
+                        ffss = ffss[0]
+                    #print('fC=',ffss)
+
             fff = ff.find("div")
-            print(fff)
+            if ShikaMode:
+                #print('鹿モード')
+                fff=str(fff).replace("div",'div class="'+FukiPos+' fC'+ffss+'"',1)
+            print('fff=',fff)
             if FUKIDASI_BR:
                 strg='<BR>'
             else:
@@ -151,26 +187,39 @@ def TalkGet(url,saveTextFile):
                 strg='<div class="img_Center"><img src="../Images/' + os.path.basename(imglazy['src']) +'" width="'+ Wid + '"></div>'+CR
                 print(strg)
                 file.write(strg)
-            
+
             s = div.find("div")
             #print(range(len(s)),s)
             strg = str(s)+CR
             if strg.find('id="main_img"')>0:
                 break
-            ss = strg.find('class="balloon type2 ') 
+            ss = strg.find('class="balloon type2 ')
             if(ss > 0):
                 print("＃アイコンなし：特殊処理")
+                if ShikaMode:
+                    ffs= strg.find('balloonColor')+len('balloonColor')
+                    #print('ffs=',ffs)
+                    ffss= strg[ffs:ffs+2]
+                    if ffss[-1]=='"':
+                        ffss = ffss[0]
+                    #print('fC=',ffss)
                 sss = strg.find('<div class="r mt10 f72">')
                 strg = strg[:sss] + CR
+                if ShikaMode:
+                    #print('鹿モード')
+                    strg=strg.replace("div",'div class="'+FukiPos+' fC'+ffss+'"',1)
 
             print("ベタ書き：",s)
             file.write(strg)
-            file.write('<p><br></p>')
+            if ShikaMode:
+                file.write('</div> <p class="iconClear"><BR> </p>'+CR)
+            else:
+                file.write('<p><br></p>')
         #print('>>>',i)
         #if i>10: break
 
     file.write("</BODY></HTML>"+CR)
-    
+
     file.close()
 
     #後始末

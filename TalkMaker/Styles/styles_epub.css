@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/* BCCKS Epub Style Standard LefttoRightを参考に、Rasen MOD Ver 0.001 */
+/* BCCKS Epub Style Standard LefttoRightを参考に、Rasen MOD Ver 0.002 */
 
 
 /* 基本設定 */
@@ -31,7 +31,7 @@ body {
 .img_Center {
     text-align: center;
 }
-
+/*
 .iconL {
     float: left;
     padding-top: 0.5em;
@@ -54,6 +54,83 @@ body {
     max-width: 10%;
 }
 
+/* 以下、	谷川求鹿さんの 鹿にっき https://talkmaker.com/works/a4e3ad39e1a98a43c31d873a207b8801.html より*/
+
+
+.iconL {
+    float: left;
+    padding-top: 0%;/* とりあえず0だけど残しく */
+    padding-left: 0%;
+    padding-right: 0%;
+    padding-bottom: 0%;
+    text-align: center;
+    display: inline;
+    width: 20%;
+}
+.iconR {
+    float: right;
+    padding-top: 0%;
+    padding-left: 0%;
+    padding-right: 0%;
+    padding-bottom: 0%;
+    text-align: center;
+    display: inline;
+    width: 20%;
+    /* アイコン領域 20+0+0=20% */
+}
 .iconClear {
     clear: both;
 }
+/* 以下、吹き出しテキストの位置指定に利用 */
+.fukiL {/* 左側吹き出し（右アイコンiconRと対で利用） */
+    float: left;
+    padding-top: 2%; /* これを削ると、文字と吹き出し枠間の余裕がなくなる*/
+    padding-left: 2%; /* なので、少しはあった方が良い */
+    padding-right: 2%;
+    padding-bottom: 2%;
+    text-align: left; /*文字は左寄せ*/
+    display: inline;
+    width: 75%;/*アイコンが10%幅なら85%に */
+    border-radius: 1em; /* 角丸呪文 */
+    -webkit-border-radius: 1em; /* 角丸呪文 */
+    -moz-border-radius: 1em; /* 角丸呪文 */
+    background: rgb(235, 235, 235);/* gray */
+    /* 75+2+2=79%, ∴20%(アイコン)+79%(文字)=99%
+        これでfloat崩れを起こさないはず 多分 */
+    /* アイコンを大きくする場合は
+       iconR(iconL)のwidthの数値を増加させますが、増加させただけ、
+       fukiR(fukiL)のwidthを減少させて下さい */
+}
+.fukiR {/* 右側吹き出し（左アイコンiconLと対で利用） */
+    float: right;
+    padding-top: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    text-align: left;
+    display: inline;
+    width: 75%;
+    border-radius: 1em; /* 角丸呪文 */
+    -webkit-border-radius: 1em; /* 角丸呪文 */
+    -moz-border-radius: 1em; /* 角丸呪文 */
+    background: rgb(235, 235, 235);/* gray */
+}
+/* 以下、吹き出しテキスト背景色の指定に利用
+    ＜div class="fukiR fC1"＞等
+    色の指定を忘れると、fukiRやfukiLで指定した灰色に。
+    fCは fukidashi Color の意。
+    鹿にっきColorを変更、トークメーカー風の色に修正＠rasen
+*/
+
+.fC1{background:  rgb(246, 220, 204)}
+.fC2{background:  rgb(252, 237, 214)}
+.fC3{background:  rgb(255, 253, 224)}
+.fC4{background:  rgb(239, 244, 221)}
+.fC5{background:  rgb(219, 234, 219)}
+.fC6{background:  rgb(218, 236, 235)}
+.fC7{background:  rgb(217, 238, 251)}
+.fC8{background:  rgb(214, 223, 240)}
+.fC9{background:  rgb(210, 206, 229)}
+.fC10{background: rgb(226, 226, 246)}
+.fC11{background: rgb(229, 215, 232)}
+.fC12{background: rgb(245, 221, 220)}
