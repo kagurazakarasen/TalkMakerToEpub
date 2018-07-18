@@ -1,0 +1,188 @@
+@charset "utf-8";
+
+/*  BCCKS Epub Style Standard LefttoRightを参考に、Rasen MOD Ver 0.22
+    鹿にっき 横バルーン対応、吹き出し三角テスト版
+*/
+
+
+/* 基本設定 */
+
+
+/* 版面 */
+
+@page {
+    margin: 2.5em 0 3em 0;
+}
+
+body {
+    -webkit-line-break: normal;
+    -epub-line-break: normal;
+    -webkit-word-break: normal;
+    -epub-word-break: normal;
+    -webkit-hyphens: auto;
+    -epub-hyphens: auto;
+    word-spacing: normal;
+    letter-spacing: normal;
+    word-wrap: break-word;
+    /* 半角長文の強制改行を許す（url対策） */
+    white-space: normal;
+    text-align: justify;
+    text-justify: inter-ideograph;
+}
+
+.img_Center {
+    text-align: center;
+}
+/*
+.iconL {
+    float: left;
+    padding-top: 0.5em;
+    padding-left: 0em;
+    padding-right: 0.5em;
+    padding-bottom: 0.5em;
+    text-align: center;
+    display: inline;
+    max-width: 10%;
+}
+
+.iconR {
+    float: right;
+    padding-top: 0.5em;
+    padding-left: 0em;
+    padding-right: 0.5em;
+    padding-bottom: 0.5em;
+    text-align: center;
+    display: inline;
+    max-width: 10%;
+}
+
+/* 以下、	谷川求鹿さんの 鹿にっき https://talkmaker.com/works/a4e3ad39e1a98a43c31d873a207b8801.html
+  および、https://talkmaker.com/works/episode/2b8f6acfaf4b2a3dbd46ef7efdd3cb3d.html を参考に
+  横書き用に神楽坂らせんが修正したものです。
+  */
+
+
+.iconL {
+    float: left;
+    text-align: center;
+    display: inline;
+    /*width: 20%;*/
+    float: left;
+    display: inline;
+    max-height: 4em;
+    max-width:  4em;
+    height:     4em;
+    width:      4em;
+}
+.iconR {
+    float: right;
+    text-align: center;
+    display: inline;
+    /*width: 20%;*/
+    display: inline;
+    max-height: 4em;
+    max-width:  4em;
+    height:     4em;
+    width:      4em;
+}
+.iconClear {
+    clear: both;
+}
+/* 以下、吹き出しテキストの位置指定に利用 */
+.fukiL {/* 左側吹き出し（右アイコンiconRと対で利用） */
+  float: left;
+  padding-top:   0.5em;/* ここまできたら0.2%じゃなくて0.5em指定だ（適当） */
+  padding-left:  0.5em;
+  padding-right: 0.5em;
+  padding-bottom:0.5em;
+  text-align: left;
+  display: inline;
+  width: 80%;
+  border-radius: 1em;/* 吹出の角丸め */
+  -webkit-border-radius: 1em;/* 吹出の角丸め */
+  background: rgb(235, 235, 235);/* とりあえず灰色 */
+  position: relative;/* せりふの ▽形 パーツ使用時必須 */
+  /*min-width: 3em; /* 最低でも３文字分の高さ（というか幅）を得る 実際にはパディングをあわせて4文字分＝アイコンの大きさと同じ。　フキダシが細すぎて、その上下に顔アイコンが来ると、バランスが悪いので */
+  min-height: 3em; /* 最低でも３文字分の高さ（というか幅）を得る 実際にはパディングをあわせて4文字分＝アイコンの大きさと同じ。　フキダシが細すぎて、その上下に顔アイコンが来ると、バランスが悪いので */
+}
+.fukiL:after{/* 吹き出しの 「▽」形 部分 不要な人はこの行を含めて10行削る */
+    border-bottom:  1.0em solid;/* 吹き出し「▽」高さ */
+    border-left: 0.1em solid;/* 吹き出し「▽」幅左半分 */
+    border-right:1.0em solid;/* 吹き出し「▽」幅右半分 */
+    /*border-color: inherit ;/* 色継承 */
+    border-color: transparent transparent inherit transparent  ;/* 色継承 */
+    content: '';/*なにもないけど必須*/
+    position: absolute;
+    right:   -0.75em;/* 位置指定 */
+    top: 0.75em;/* 位置指定 */
+}
+
+.fukiR {
+    float: left;
+    padding-top:   0.5em;
+    padding-left:  0.5em;
+    padding-right: 0.5em;
+    padding-bottom:0.5em;
+    text-align: left;
+    display: inline;
+    width: 80%;
+    border-radius: 1em;/* 吹出の角丸め */
+    -webkit-border-radius: 1em;/* 吹出の角丸め */
+    background: rgb(235, 235, 235);/* とりあえず灰色 */
+    position: relative;/* せりふの △形 パーツ使用時必須 */
+    min-width: 3em;
+}
+.fukiR:after{/* 吹き出しの 「△」形 部分 不要な人はこの行を含めて10行削る */
+    border-bottom:1.0em solid;/* 吹き出し「△」高さ */
+    border-right: 0.1em solid;/* 吹き出し「△」幅右半分 */
+    border-left:  1.0em solid;/* 吹き出し「△」幅左半分 */
+    border-color: transparent inherit transparent transparent;/* 色継承 */
+    content: '';/*なにもないけど必須*/
+    position: absolute;
+    left: -0.75em;/* 位置指定 */
+    top:  0.75em;/* 位置指定 */
+}
+
+/* 以下、吹き出しテキスト背景色の指定に利用
+    ＜div class="fukiR fC1"＞等
+    色の指定を忘れると、fukiRやfukiLで指定した灰色に。
+    fCは fukidashi Color の意。
+    鹿にっきColorを変更、トークメーカー風の色に修正＠rasen
+*/
+
+.fC1{
+  border-color:rgb(246, 220, 204) transparent;
+  background:  rgb(246, 220, 204)}
+.fC2{
+  border-color:rgb(252, 237, 214) transparent;
+  background:  rgb(252, 237, 214)}
+.fC3{
+  border-color:rgb(255, 253, 224) transparent;
+  background:  rgb(255, 253, 224)}
+.fC4{
+  border-color:rgb(239, 244, 221) transparent;
+  background:  rgb(239, 244, 221)}
+.fC5{
+  border-color:rgb(219, 234, 219) transparent;
+  background:  rgb(219, 234, 219)}
+.fC6{
+  border-color:rgb(218, 236, 235) transparent;
+  background:  rgb(218, 236, 235)}
+.fC7{
+  border-color:rgb(217, 238, 251) transparent;
+  background:  rgb(217, 238, 251)}
+.fC8{
+  border-color:rgb(214, 223, 240) transparent;
+  background:  rgb(214, 223, 240)}
+.fC9{
+  border-color:rgb(210, 206, 229) transparent;
+  background:  rgb(210, 206, 229)}
+.fC10{
+  border-color:rgb(226, 226, 246) transparent;
+  background: rgb(226, 226, 246)}
+.fC11{
+  border-color:rgb(229, 215, 232) transparent;
+  background: rgb(229, 215, 232)}
+.fC12{
+  border-color:rgb(245, 221, 220) transparent;
+  background: rgb(245, 221, 220)}
