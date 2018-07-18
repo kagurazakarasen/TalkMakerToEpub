@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 """
+    トークメーカーのストーリーをEpubファイルにしちゃうやつ Ver0.21
     使い方：　python TalkGet.py [URL] [File]
     URLにあるトークメーカーのストーリーを取得してTextディレクトリにxhtmlページ(file)を作成します。
     自動的に画像も取得します。
