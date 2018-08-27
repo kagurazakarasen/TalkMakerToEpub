@@ -101,6 +101,7 @@ def TalkGet(url,saveTextFile):
     #print(m30div[1])    # すべての発言
 
     #mt30 = soup.find_all("div", class_="mt30")
+    FukiPos=""
     i=0
     for div in soup.select(".mt30"):
         i=i+1
